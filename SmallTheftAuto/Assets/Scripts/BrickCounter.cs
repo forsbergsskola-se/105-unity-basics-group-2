@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BrickCounter : MonoBehaviour
 {
-    int brickCount;
+    private int brickCount;
     
     public void CountBrick() 
     {
         brickCount++;
-        Debug.Log($"Total Bricks Removed: {brickCount}")
+        Debug.Log($"Total Bricks Removed: {brickCount}");
     }
 }
