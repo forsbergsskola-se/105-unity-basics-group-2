@@ -17,5 +17,11 @@ public class PlayerMovement : MonoBehaviour
             // translate the player's transform-component on the y-axis (which points up)
             transform.Translate(0f, 0.01f, 0f);
         }
+        
+        // only, if the S-Key is currently pressed...
+        if (Input.GetKey(KeyCode.S)) {
+            // translate the player's transform-component on the y-axis
+            transform.Translate(0f, -0.01f, 0f);
+        }
     }
 }
