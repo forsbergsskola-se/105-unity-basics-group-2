@@ -23,5 +23,15 @@ public class PlayerMovement : MonoBehaviour
             // translate the player's transform-component on the y-axis
             transform.Translate(0f, -0.01f, 0f);
         }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(0f, 0f, 0.1f);
+        }
+        
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(0f, 0f, -0.1f);
+        }
     }
 }
