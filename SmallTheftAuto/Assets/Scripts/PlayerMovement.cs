@@ -22,5 +22,15 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(0f, -0.01f, 0f);
         }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(0f, 0.01f, 0f);
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.Rotate(0f, -0.01f, 0f);
+        }
     }
 }
