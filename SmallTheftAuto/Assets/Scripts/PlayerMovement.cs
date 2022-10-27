@@ -10,9 +10,12 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(0f, 0.01f, 0f);
+        }
     }
 }
