@@ -17,5 +17,10 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.Translate(0f, 0.01f, 0f);
         }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(0f, -0.01f, 0f);
+        }
     }
 }
