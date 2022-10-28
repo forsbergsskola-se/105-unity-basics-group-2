@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -15,22 +16,23 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(0f, 0.01f, 0f);
+            transform.Translate(0f, 0.01f , 0f*Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(0f, -0.01f, 0f);
+            transform.Translate(0f, -0.01f, 0f*Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(0f, 0.01f, 0f);
+            transform.Rotate(0f, 0.01f, 0f*Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(0f, -0.01f, 0f);
+            transform.Rotate(0f, -0.01f , 0f*Time.deltaTime);
+            
         }
     }
 }
