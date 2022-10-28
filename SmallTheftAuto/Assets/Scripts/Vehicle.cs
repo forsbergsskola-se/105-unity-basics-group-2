@@ -7,23 +7,23 @@ using UnityEngine;
 public class Vehicle : MonoBehaviour
 {
     public GameObject player;
-
     public CarMovment carMovement;
-    
-    
 
-     void Update()
+
+    void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (Input.GetKeyUp(KeyCode.F))
         {
             Debug.Log("F is pressed");
             if (player.activeInHierarchy) //It is true
             {
+                Debug.Log("Enter Car");
                 player.SetActive(false);
                 carMovement.enabled = true;
             } else
             {
-                transform.position = player.transform.position * Time.deltaTime;
+                Debug.Log("Leave Car");
+                player.transform.position = transform.position;
                 player.SetActive(true);
                 carMovement.enabled = false;
             }
