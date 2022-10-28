@@ -5,34 +5,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed = 10.0f;
+    public float rotationSpeed = 100.0f;
 
     
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
-        {
-            transform.Translate(0f, 0.01f , 0f*Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(0f, -0.01f, 0f*Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(0f, 0.01f, 0f*Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(0f, -0.01f , 0f*Time.deltaTime);
-            
-        }
+        float translation = Input.GetAxis("Vertical") * speed;
+        float rotation = Input.GetAxis("Horizontal") * rotationSpeed;
+        translation *= Time.deltaTime;
+        rotation *= Time.deltaTime;
+        transform.Translate(translation,0, 0);
+        transform.Rotate(0, rotation, 0);
     }
 }
+
+
