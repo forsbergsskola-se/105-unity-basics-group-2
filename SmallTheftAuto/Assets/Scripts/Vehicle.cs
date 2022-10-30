@@ -8,20 +8,41 @@ public class Vehicle : MonoBehaviour
 
     public CarMovement carMovement;
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.F))
+        if (EnterCarButtonPressed())
         {
-            if (player.activeInHierarchy)
+            if (PlayerIsInCar())
             {
-                player.SetActive(false);
-                carMovement.enabled = true;
+                LeaveCar();
             }
-
-            player.transform.position = transform.position;
-            player.SetActive(true);
-            carMovement.enabled = false;
+            else
+            {
+                EnterCar();
+            }
         }
+    }
+
+    public bool EnterCarButtonPressed()
+    {
+        return Input.GetKey(KeyCode.F);
+    }
+
+    public bool PlayerIsInCar()
+    {
+        return player.activeInHierarchy;
+    }
+
+    public void LeaveCar()
+    {
+        player.SetActive(false);
+        carMovement.enabled = true;
+    }
+
+    public void EnterCar()
+    {
+        player.transform.position = transform.position;
+        player.SetActive(true);
+        carMovement.enabled = false;
     }
 }
