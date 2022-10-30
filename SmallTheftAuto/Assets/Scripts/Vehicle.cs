@@ -16,7 +16,7 @@ public class Vehicle : MonoBehaviour
             {
                 LeaveCar();
             }
-            else
+            else if (Vector3.Distance(player.transform.position, transform.position) < 3)
             {
                 EnterCar();
             }
@@ -30,16 +30,18 @@ public class Vehicle : MonoBehaviour
 
     public bool PlayerIsInCar()
     {
-        return player.activeInHierarchy;
+        if (player.activeInHierarchy)
+            return false;
+        return true;
     }
 
-    public void LeaveCar()
+    public void EnterCar()
     {
         player.SetActive(false);
         carMovement.enabled = true;
     }
 
-    public void EnterCar()
+    public void LeaveCar()
     {
         player.transform.position = transform.position;
         player.SetActive(true);
