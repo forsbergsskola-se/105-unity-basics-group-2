@@ -12,23 +12,41 @@ public class Vehicle : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.F))
+        if (IsEnterCarPressed())
         {
-            Debug.Log("F is pressed");
-            if (player.activeInHierarchy) //It is true
+            if (PlayerIsInCar()) //It is true !
             {
-                Debug.Log("Enter Car");
-                player.SetActive(false);
-                carMovement.enabled = true;
+                LeaveCar();
             } else
             {
-                Debug.Log("Leave Car");
-                player.transform.position = transform.position;
-                player.SetActive(true);
-                carMovement.enabled = false;
+                EnterCar();
             }
         }
+    }
 
+    void EnterCar()
+    {
+        Debug.Log("Enter Car");
+        player.SetActive(false);
+        carMovement.enabled = true;
+    }
 
+    void LeaveCar()
+    {
+        Debug.Log("Leave Car");
+        player.transform.position = transform.position;
+        player.SetActive(true);
+        carMovement.enabled = false;
+    }
+    
+
+    bool IsEnterCarPressed()
+    {
+        return Input.GetKeyUp(KeyCode.F);
+    }
+
+    bool PlayerIsInCar()
+    {
+        return !player.activeInHierarchy;
     }
 }
