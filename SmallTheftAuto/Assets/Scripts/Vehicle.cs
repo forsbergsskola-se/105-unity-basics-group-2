@@ -25,7 +25,7 @@ public class Vehicle : MonoBehaviour
 
     public bool EnterCarButtonPressed()
     {
-        return Input.GetKey(KeyCode.F);
+        return Input.GetButton("Interact-Vehicle");
     }
 
     public bool PlayerIsInCar()
