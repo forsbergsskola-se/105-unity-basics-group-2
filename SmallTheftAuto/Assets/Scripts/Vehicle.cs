@@ -9,6 +9,12 @@ public class Vehicle : MonoBehaviour
     public GameObject player;
     public CarMovment carMovement;
 
+
+    void Awake()
+    {
+        player = GameObject.Find("Player");
+    }
+
     void Update()
     {
         float distance = Vector3.Distance(player.transform.position, transform.position);//2 in distance
