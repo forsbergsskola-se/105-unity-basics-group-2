@@ -25,14 +25,12 @@ public class Vehicle : MonoBehaviour
 
     public bool EnterCarButtonPressed()
     {
-        return Input.GetButton("Interact-Vehicle");
+        return Input.GetButtonDown("Interact-Vehicle");
     }
 
     public bool PlayerIsInCar()
     {
-        if (player.activeInHierarchy)
-            return false;
-        return true;
+        return !player.activeInHierarchy;
     }
 
     public void EnterCar()
