@@ -12,6 +12,7 @@ public class ParkingSpot : MonoBehaviour
         if (hasCar)
         {
             Instantiate(carPrefab, new Vector3(-40f, -15f, -12), Quaternion.Euler(0,0,0));
+            hasCar = false;
         }
     }
 
