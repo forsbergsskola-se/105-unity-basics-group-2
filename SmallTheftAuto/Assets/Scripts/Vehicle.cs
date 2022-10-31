@@ -8,20 +8,16 @@ public class Vehicle : MonoBehaviour
 {
     public GameObject player;
     public CarMovment carMovement;
-    public float _distance;
-    
-    
-
 
     void Update()
     {
-        _distance = Vector3.Distance(player.transform.position, transform.position);//2 in distance
+        float distance = Vector3.Distance(player.transform.position, transform.position);//2 in distance
         if (IsEnterCarPressed())
         {
             if (PlayerIsInCar())
             {
                 LeaveCar();
-            } else if (_distance<2)
+            } else if (distance<2)
             {
                 EnterCar();
             }
@@ -47,7 +43,7 @@ public class Vehicle : MonoBehaviour
 
     bool IsEnterCarPressed()
     {
-        return Input.GetKeyUp(KeyCode.F);
+        return Input.GetButtonUp("Interact-Vehicle");
         
     }
 
