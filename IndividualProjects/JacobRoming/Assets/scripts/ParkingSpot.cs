@@ -12,7 +12,7 @@ public class ParkingSpot : MonoBehaviour
     {
         if (hasCar)
         {
-            
+            Instantiate(carPrefab, transform.position, transform.rotation);
         }
     }
 
