@@ -1,51 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    public GameObject player;
-
     public CarMovement carMovement;
 
-    private void Awake()
-    {
-        player = GameObject.Find("Player");
-    }
-
-    void Update()
-    {
-        if (EnterCarButtonPressed())
-        {
-            if (PlayerIsInCar())
-            {
-                LeaveCar();
-            }
-            else if (Vector3.Distance(player.transform.position, transform.position) < 3)
-            {
-                EnterCar();
-            }
-        }
-    }
-
-    public bool EnterCarButtonPressed()
-    {
-        return Input.GetButtonDown("Interact-Vehicle");
-    }
-
-    public bool PlayerIsInCar()
-    {
-        return !player.activeInHierarchy;
-    }
-
-    public void EnterCar()
+    public void EnterCar(GameObject player)
     {
         player.SetActive(false);
         carMovement.enabled = true;
     }
 
-    public void LeaveCar()
+    public void LeaveCar(GameObject player)
     {
         player.transform.position = transform.position;
         player.SetActive(true);
