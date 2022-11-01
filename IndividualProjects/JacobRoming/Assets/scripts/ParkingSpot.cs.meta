@@ -3,7 +3,8 @@ guid: 88b445a27ea04d54b8bf6fc3c8804aa1
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - carPrefab: {fileID: 2588891069886088781, guid: a3fd81a99094d04489e36fa807e936a6, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -6,6 +6,7 @@ using UnityEngine;
 public class ParkingSpot : MonoBehaviour
 {
     public bool hasCar;
+    private bool willSpawnNewCar = false;
 
     public GameObject carPrefab;
     // Start is called before the first frame update
@@ -13,11 +14,12 @@ public class ParkingSpot : MonoBehaviour
     {
         if (hasCar)
         {
-            Vector3 carPosition = transform.position;
-            carPosition.y += 2;
-            Instantiate(carPrefab, carPosition, transform.rotation);
+            var transform1 = transform;
+            Vector3 carPosition = transform1.position;
+            carPosition.y += 5;
+            Instantiate(carPrefab, carPosition, transform1.rotation);
         }
-        OnCollisionExit(new Collision());
+        //OnCollisionExit(new Collision());
     }
 
     // Update is called once per frame
@@ -28,18 +30,19 @@ public class ParkingSpot : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        if (true)
+        //Checking the object name like this feels like it could easily break, but I cant think of a better solution rn
+        if (other.gameObject.name == "Car(Clone)" && !willSpawnNewCar)
         {
-            test();
+            willSpawnNewCar = true;
+            StartCoroutine(WaitBeforeSpawning());
         }
     }
 
-    IEnumerator test()
+    private IEnumerator WaitBeforeSpawning()
     {
-        Debug.Log("hello");
-        yield return new WaitForSeconds(5);
-        
-        Debug.Log("hello again");
+        yield return new WaitForSeconds(10);
+        Start(); //Run start to spawn a new car, this way we also check if hasCar still is true
+        willSpawnNewCar = false;
     }
     
 }

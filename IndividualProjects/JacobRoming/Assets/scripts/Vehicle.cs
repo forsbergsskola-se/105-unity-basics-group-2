@@ -11,7 +11,7 @@ public class Vehicle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -19,7 +19,6 @@ public class Vehicle : MonoBehaviour
     {
         if (EnterCarButtonPressed())
         {
-            Debug.Log("AAAAAA");
             if (PlayerIsInCar())
             {
                 if (Vector3.Distance(transform.position, player.transform.position) < 100)
@@ -42,9 +41,11 @@ public class Vehicle : MonoBehaviour
 
     void LeaveCar()
     {
-        player.transform.SetPositionAndRotation(transform.position,new Quaternion(0,0,0,0));
+        Vector3 newPlayerPosition = transform.right;
+        newPlayerPosition.y += 2;
+        player.transform.SetPositionAndRotation(newPlayerPosition,new Quaternion(0,0,0,0));
         player.SetActive(true);
-        carMovement.enabled = true;
+        carMovement.enabled = false;
     }
 
     bool EnterCarButtonPressed()
