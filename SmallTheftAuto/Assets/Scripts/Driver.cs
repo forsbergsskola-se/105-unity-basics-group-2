@@ -12,7 +12,7 @@ public class Driver : MonoBehaviour
             Vehicle[] vehicles = FindObjectsOfType<Vehicle>();
             Vehicle closestCar = FindclosestVehicle(vehicles);
             
-            if(Vector3.Distance(transform.position, closestCar.transform.position)<2)
+            if(Vector3.Distance(transform.position, closestCar.transform.position)<8)
             {
                 closestCar.EnterCar(gameObject);
                 
