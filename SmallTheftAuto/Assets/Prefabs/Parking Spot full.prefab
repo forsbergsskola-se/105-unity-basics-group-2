@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1893438992563174877
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444789, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444792, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: m_Name
+      value: Parking Spot full
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444793, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: hasCar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941634268213444793, guid: 7b170957c96ad24419ab138697505116,
+        type: 3}
+      propertyPath: carPrefab
+      value: 
+      objectReference: {fileID: 5602947578488753911, guid: 8950f21b010251f4b89410b487c821dd,
+        type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7b170957c96ad24419ab138697505116, type: 3}
