@@ -12,7 +12,7 @@ public class ParkingSpot : MonoBehaviour
         if (hasCar)
         {
             var position = transform.position;
-            Instantiate(carPrefab, new Vector3(position.x, position.y+2, position.z), Quaternion.Euler(0,0,0));
+            Instantiate(carPrefab, new Vector3(position.x, position.y, position.z), Quaternion.Euler(0,0,0));
         }
     }
 

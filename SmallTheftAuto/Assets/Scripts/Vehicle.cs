@@ -6,39 +6,18 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    public GameObject player;
+    private GameObject player;
     public CarMovment carMovement;
-
-
-    void Awake()
-    {
-        player = GameObject.Find("Player");
-    }
-
-    void Update()
-    {
-        float distance = Vector3.Distance(player.transform.position, transform.position);//2 in distance
-        if (IsEnterCarPressed())
-        {
-            if (PlayerIsInCar())
-            {
-                LeaveCar();
-            } else if (distance<2)
-            {
-                EnterCar();
-            }
-            
-        }
-    }
-
-    void EnterCar()
+    
+    public void EnterCar(GameObject player)
     {
         Debug.Log("Enter Car");
         player.SetActive(false);
         carMovement.enabled = true;
+        this.player = player;
     }
 
-    void LeaveCar()
+    public void LeaveCar()
     {
         Debug.Log("Leave Car");
         player.transform.position = transform.position;
@@ -47,15 +26,8 @@ public class Vehicle : MonoBehaviour
     }
     
 
-    bool IsEnterCarPressed()
-    {
-        return Input.GetButtonUp("Interact-Vehicle");
-        
-    }
+    
 
-    bool PlayerIsInCar()
-    {
-        return !player.activeInHierarchy;
-    }
+    
     
 }

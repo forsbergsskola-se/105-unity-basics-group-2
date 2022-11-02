@@ -16,5 +16,17 @@ public class CarMovment : MonoBehaviour
         rotation *= Time.deltaTime;
         transform.Translate(translation,0, 0);
         transform.Rotate(0, rotation, 0);
+        Vehicle vehicle = GetComponent<Vehicle>();
+        if (IsEnterCarPressed())
+        {
+            vehicle.LeaveCar();
+        }
+        
     }
+    public bool IsEnterCarPressed()
+    {
+        return Input.GetButtonUp("Interact-Vehicle");
+        
+    }
+    
 }
