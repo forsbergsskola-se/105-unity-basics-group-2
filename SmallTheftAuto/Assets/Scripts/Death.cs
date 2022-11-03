@@ -5,20 +5,14 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
-   private int health;
-   public PlayerStats playerStats;
+   
+   
 
-   private void Start()
+   private void Awake()
    {
-      health = playerStats.health;
+      Debug.Log("Ya dead!");
+      
    }
 
-   public void OnDeath()
-   {
-      Debug.Log("Called OnDeath.");
-      if (health <= 0)
-      {
-         Debug.Log("You are dead.");
-      }
-   }
+   
 }
