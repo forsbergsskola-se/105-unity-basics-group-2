@@ -7,6 +7,7 @@ public class CarLogic : MonoBehaviour
     // Start is called before the first frame update
     private GameObject player;
     private GameObject camera;
+    public float exitOffset;
     void Start()
     {
         
@@ -29,7 +30,10 @@ public class CarLogic : MonoBehaviour
     public void ExitCar()
     {
         GetComponent<CarMovement>().enabled = false;
-        player.transform.position = transform.right; //Might be problematic in the future
+        Vector3 newPlayerPosition = transform.position;
+        newPlayerPosition += (transform.right * exitOffset);
+        player.transform.position = newPlayerPosition; //Might be problematic in the future
+        
         camera.GetComponent<CameraBehaviour>().NewFocus(player);
         player.SetActive(true);
     }
