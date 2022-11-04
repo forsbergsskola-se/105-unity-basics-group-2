@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    public GameObject player;
     private int health;
     public PlayerStats playerStats;
 
