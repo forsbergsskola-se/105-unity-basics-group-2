@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestGiverSearcher : MonoBehaviour
+
+public class QuestTaker : MonoBehaviour, IQuestTaker
 {
+    public PlayerStats playerStats;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +25,16 @@ public class QuestGiverSearcher : MonoBehaviour
                 {
                     Debug.Log("We found one");
                     GameObject target = hitCollider.gameObject;
-                    target.SendMessage("activateQuest");
+                    target.SendMessage("activateQuest", this);
                     break;
                 }
             }
         }
+    }
+
+    public void RecieveReward(int money, int points)
+    {
+        playerStats.money += money;
+        playerStats.score += points;
     }
 }
