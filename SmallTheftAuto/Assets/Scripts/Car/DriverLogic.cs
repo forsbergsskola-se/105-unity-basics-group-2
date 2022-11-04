@@ -16,7 +16,7 @@ public class DriverLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 10.0f);
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 5.0f);
             foreach (var hitCollider in nearbyColliders)
             {
                 Debug.Log("Looking for cars");

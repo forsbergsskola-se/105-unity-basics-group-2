@@ -19,11 +19,11 @@ public class QuestGiverSearcher : MonoBehaviour
             foreach (var hitCollider in nearbyColliders)
             {
                 Debug.Log("Looking for quest givers");
-                if (hitCollider.gameObject.GetComponent(typeof(CarLogic)) is CarLogic)
+                if (hitCollider.gameObject.GetComponent(typeof(QuestLogic)) is QuestLogic)
                 {
                     Debug.Log("We found one");
-                    /*car = hitCollider.gameObject;
-                    car.GetComponent<CarLogic>().EnterCar(this.gameObject);*/
+                    GameObject target = hitCollider.gameObject;
+                    target.SendMessage("activateQuest");
                     break;
                 }
             }

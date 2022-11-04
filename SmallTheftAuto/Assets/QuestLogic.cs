@@ -18,6 +18,6 @@ public class QuestLogic : MonoBehaviour
 
     public void activateQuest()
     {
-        
+        Debug.Log("Quest activated!");
     }
 }
