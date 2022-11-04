@@ -15,6 +15,7 @@ public class CarLogic : MonoBehaviour
 
     private GameObject mainCamera;
     private ParticleSystem particles;
+    public PlayerStats playerStats;
     public float exitOffset;
     public float health;
 
@@ -73,6 +74,7 @@ public class CarLogic : MonoBehaviour
             if (player != null)
             {
                 //The player should take damage here, but that function is not implemented
+                playerStats.health = -1;
             }
         }
     }
