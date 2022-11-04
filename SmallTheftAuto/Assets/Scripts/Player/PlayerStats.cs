@@ -9,15 +9,9 @@ public class PlayerStats : ScriptableObject
     public int health;
 
     public int score;
-    // Start is called before the first frame update
-    void Start()
+    
+    public void TakeDamage(int damage)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        health -= damage;
     }
 }

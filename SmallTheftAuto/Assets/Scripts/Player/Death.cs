@@ -10,7 +10,8 @@ public class Death : MonoBehaviour
 
    private void Start()
    {
-      health = playerStats.health;
+      Debug.Log("You are dead.");
+      //health = playerStats.health;
    }
 
    public void OnDeath()
