@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fab64f641df452f8635c6154d3a045b, type: 3}
-  m_Name: Pistol
+  m_Script: {fileID: 11500000, guid: 147d8813cf3c95541a6ce26d6610f32f, type: 3}
+  m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  range: 50
-  reloadTime: 4
-  timeBetweenShots: 0.3
-
-  magSize: 17
-  semiAuto: 1
-  visualMesh: {fileID: 3232266576653150044, guid: 13698ba7d5798a4469c56f722c87572b, type: 3}
+  money: 0
+  health: 0
+  score: 0
