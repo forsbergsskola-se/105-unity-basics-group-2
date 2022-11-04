@@ -1,16 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Android;
+using UnityEngine.PlayerLoop;
+using Debug = UnityEngine.Debug;
 
 public class CarLogic : MonoBehaviour
 {
     // Start is called before the first frame update
     private GameObject player;
     private GameObject camera;
+    private ParticleSystem particles;
     public float exitOffset;
+    public float health;
     void Start()
     {
-        
+        particles = GetComponent<ParticleSystem>();
+        var emission = particles.emission;
+        emission.enabled = false;
     }
 
     // Update is called once per frame
@@ -36,5 +46,32 @@ public class CarLogic : MonoBehaviour
         
         camera.GetComponent<CameraBehaviour>().NewFocus(player);
         player.SetActive(true);
+        player = null;
+    }
+
+    public void OnCollisionEnter(Collision collision)
+    {
+        if (collision.relativeVelocity.magnitude > 0.1f)
+        {
+            health -= collision.relativeVelocity.magnitude;
+            Debug.Log("Magnitude was high enough");
+        }
+        Debug.Log("velocity magnitude was: " + collision.relativeVelocity.magnitude);
+        Debug.Log("New car health is: " + health);
+        //TODO: move the logic below to its own function
+        if (health < 30)
+        {
+            //TODO: make the car turn on fire here
+            var emission = particles.emission;
+            emission.enabled = true;
+        }
+
+        if (health < 0)
+        {
+            if (player != null)
+            {
+                //The player should take damage here, but that function is not implemented
+            }
+        }
     }
 }
