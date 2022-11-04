@@ -75,6 +75,7 @@ public class CarLogic : MonoBehaviour
             {
                 //The player should take damage here, but that function is not implemented
                 playerStats.health = -1;
+                GetComponent<CarMovement>().enabled = false;
             }
         }
     }
