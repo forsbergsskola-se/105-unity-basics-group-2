@@ -532,7 +532,7 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-# JetBrains Rider
+# JetBrains R   ider
 .idea/
 *.sln.iml
 
@@ -547,6 +547,7 @@ FodyWeavers.xsd
 
 # Ignore Mac-Specific files
 *.DS_Store
+.DS_Store
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
