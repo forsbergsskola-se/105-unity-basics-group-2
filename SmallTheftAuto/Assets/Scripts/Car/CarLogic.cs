@@ -65,8 +65,8 @@ public class CarLogic : MonoBehaviour
         if (health < 30)
         {
             //TODO: make the car turn on fire here
-            var emission = particles.emission;
-            emission.enabled = true;
+            /*var emission = particles.emission;
+            emission.enabled = true; this code makes unity angry*/ 
         }
 
         if (health < 0)
