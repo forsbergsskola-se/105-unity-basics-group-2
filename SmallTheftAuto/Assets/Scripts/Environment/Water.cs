@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    public GameObject player;
     private int health;
     public PlayerStats playerStats;
 
@@ -14,9 +13,14 @@ public class Water : MonoBehaviour
         health = playerStats.health;
     }
 
-    private void OnCollisionEnter()
-    {
-        health = 0;
-        player.GetComponent<Death>().OnDeath();
+     void OnTriggerEnter(Collider other)
+     {
+         Drowning drowning = other.GetComponent<Drowning>();
+         if (drowning == null)
+         {
+             other.gameObject.AddComponent<Drowning>();
+         }
+        
     }
+    
 }
