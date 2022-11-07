@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public class QuestTaker : MonoBehaviour, IQuestTaker
-{
+public class QuestLogic : MonoBehaviour, IQuestTaker
+{ 
     public PlayerStats playerStats;
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class QuestTaker : MonoBehaviour, IQuestTaker
             foreach (var hitCollider in nearbyColliders)
             {
                 Debug.Log("Looking for quest givers");
-                if (hitCollider.gameObject.GetComponent(typeof(QuestLogic)) is QuestLogic)
+                if (hitCollider.gameObject.GetComponent(typeof(QuestGiverLogic)) is QuestGiverLogic)
                 {
                     Debug.Log("We found one");
                     GameObject target = hitCollider.gameObject;
@@ -34,7 +35,7 @@ public class QuestTaker : MonoBehaviour, IQuestTaker
 
     public void RecieveReward(int money, int points)
     {
-        playerStats.money += money;
+        playerStats.money = playerStats.money + money;
         playerStats.score += points;
     }
 }

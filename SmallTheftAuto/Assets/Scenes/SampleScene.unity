@@ -473,7 +473,6 @@ GameObject:
   m_Component:
   - component: {fileID: 744257893}
   - component: {fileID: 744257892}
-  - component: {fileID: 744257891}
   m_Layer: 0
   m_Name: minimap camera
   m_TagString: Untagged
@@ -481,14 +480,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &744257891
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 744257890}
-  m_Enabled: 1
 --- !u!20 &744257892
 Camera:
   m_ObjectHideFlags: 0
@@ -923,6 +914,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c36bbf27a3d8c43b8cb61911968283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectivesFinished: []
+  moneyReward: 0
+  pointsReward: 0
 --- !u!65 &1334655827
 BoxCollider:
   m_ObjectHideFlags: 0
