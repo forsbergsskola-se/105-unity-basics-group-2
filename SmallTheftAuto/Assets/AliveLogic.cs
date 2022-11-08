@@ -13,6 +13,9 @@ public class AliveLogic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerStats.money = 0;
+        PlayerStats.score = 0;
+        PlayerStats.health = 100;
     }
 
     // Update is called once per frame
