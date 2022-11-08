@@ -22,13 +22,7 @@ public class CarMovement : MonoBehaviour
             //transform.Translate(new Vector3(0, 0, movementSpeed * Time.deltaTime));
             Rigidbody body = GetComponent<Rigidbody>();
             body.AddRelativeForce(0,0,movementSpeed * Time.fixedDeltaTime);
-            //body.velocity += new Vector3(0, 0, movementSpeed * Time.deltaTime);
-            /*if (body.velocity.z > 20)
-            {
-                Vector3 newVelocity = body.velocity;
-                newVelocity.z = 20;
-                body.velocity = newVelocity;
-            }*/
+            
         }
         if (Input.GetKey(KeyCode.S))
         {
