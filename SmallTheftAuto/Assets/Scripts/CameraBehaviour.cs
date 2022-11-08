@@ -20,7 +20,6 @@ public class CameraBehaviour : MonoBehaviour
     {
         Vector3 playerPosition = focus.transform.position;
         playerPosition.y += cameraHeight;
-        //transform.position = Vector3.Lerp(transform.position, playerPosition, Time.deltaTime);
         transform.position = Vector3.SmoothDamp(transform.position, playerPosition, ref velocity, 0.2f);
     }
 
