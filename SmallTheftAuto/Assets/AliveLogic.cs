@@ -30,9 +30,13 @@ public class AliveLogic : MonoBehaviour
     }
     IEnumerator respawnRoutine()
     {
-        gameObject.SetActive(false);
+        GetComponentInChildren<MeshRenderer>().enabled = false;
+        //GetComponent<MeshRenderer>().enabled = false;
+        //gameObject.SetActive(false);
         yield return new WaitForSeconds(5);
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
+        //GetComponent<MeshRenderer>().enabled = false;
+        GetComponentInChildren<MeshRenderer>().enabled = true;
         PlayerStats.health = 100;
         PlayerStats.money /= 2;
 

@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerStats.health >= 0)
+        if (playerStats.health > 0)
         {
             if (Input.GetKey(KeyCode.W))
             {

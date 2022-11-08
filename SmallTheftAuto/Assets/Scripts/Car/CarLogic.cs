@@ -33,11 +33,14 @@ public class CarLogic : MonoBehaviour
     }
     public void EnterCar(GameObject player)
     {
-        this.player = player;
-        mainCamera = GameObject.Find("Main Camera");
-        mainCamera.GetComponent<CameraBehaviour>().NewFocus(gameObject);
-        GetComponent<CarMovement>().enabled = true;
-        player.SetActive(false);
+        if (health > 0)
+        {
+            this.player = player;
+            mainCamera = GameObject.Find("Main Camera");
+            mainCamera.GetComponent<CameraBehaviour>().NewFocus(gameObject);
+            GetComponent<CarMovement>().enabled = true;
+            player.SetActive(false);
+        }
     }
 
     public void ExitCar()
@@ -74,6 +77,7 @@ public class CarLogic : MonoBehaviour
             if (player != null)
             {
                 //The player should take damage here, but that function is not implemented
+                ExitCar();
                 playerStats.health = -1;
                 GetComponent<CarMovement>().enabled = false;
             }
