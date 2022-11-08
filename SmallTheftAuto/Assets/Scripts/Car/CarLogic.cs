@@ -14,16 +14,16 @@ public class CarLogic : MonoBehaviour
     private GameObject player;
 
     private GameObject mainCamera;
-    private ParticleSystem particles;
+    // private ParticleSystem particles;
     public PlayerStats playerStats;
     public float exitOffset;
     public float health;
 
     void Start()
     {
-        particles = GetComponent<ParticleSystem>();
-        var emission = particles.emission;
-        emission.enabled = false;
+        // particles = GetComponent<ParticleSystem>();
+        // var emission = particles.emission;
+        // emission.enabled = false;
     }
 
     // Update is called once per frame
