@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class QuestGiverLogic : MonoBehaviour, IQuestgiver
 {
+
+    public delegate void OnQuestStart();
+    public event OnQuestStart QuestStarted;
     private IQuestTaker questTaker;
     private List<bool> objectivesFinished;
     public GameObject prefab;
@@ -55,6 +58,7 @@ public class QuestGiverLogic : MonoBehaviour, IQuestgiver
                 questObject.GetComponent<IQuestObject>().Initiate(this, i);
                 objectivesFinished.Add(false);
             }
+            QuestStarted?.Invoke();
         }
     }
 

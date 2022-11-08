@@ -35,7 +35,7 @@ public class QuestLogic : MonoBehaviour, IQuestTaker
 
     public void RecieveReward(int money, int points)
     {
-        playerStats.money = playerStats.money + money;
+        playerStats.money += money;
         playerStats.score += points;
     }
 }
