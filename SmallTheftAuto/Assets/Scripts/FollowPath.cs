@@ -28,7 +28,7 @@ public class FollowPath : MonoBehaviour
         {
             Vector3 pos = Vector3.MoveTowards(transform.position, target[current].position, speed * Time.deltaTime);
             GetComponent<Rigidbody>().MovePosition(pos);
-            Debug.Log(pos);
+            
         }
         else current = (current + 1) % target.Length;
     }

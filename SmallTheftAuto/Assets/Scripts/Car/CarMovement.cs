@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,24 +15,38 @@ public class CarMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(new Vector3(0, 0, movementSpeed * Time.deltaTime));
+            //transform.Translate(new Vector3(0, 0, movementSpeed * Time.deltaTime));
+            Rigidbody body = GetComponent<Rigidbody>();
+            body.AddRelativeForce(0,0,movementSpeed * Time.fixedDeltaTime);
+            //body.velocity += new Vector3(0, 0, movementSpeed * Time.deltaTime);
+            /*if (body.velocity.z > 20)
+            {
+                Vector3 newVelocity = body.velocity;
+                newVelocity.z = 20;
+                body.velocity = newVelocity;
+            }*/
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(0, 0, -movementSpeed * Time.deltaTime));
+            Rigidbody body = GetComponent<Rigidbody>();
+            body.AddRelativeForce(0,0,-movementSpeed * Time.fixedDeltaTime);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0, rotationSpeed * Time.fixedDeltaTime, 0));
         }
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0, -rotationSpeed * Time.fixedDeltaTime, 0));
         }
+    }
+
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.F))
         {
             GetComponent<CarLogic>().ExitCar();
