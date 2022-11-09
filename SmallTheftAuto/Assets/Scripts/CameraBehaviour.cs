@@ -11,8 +11,8 @@ public class CameraBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //player = FindObjectOfType<Player>();
-        focus = GameObject.Find("Player");
+        //In the beginning the camera should follow the player
+        focus = FindObjectOfType<PlayerMovement>().gameObject;;
     }
 
     // Update is called once per frame
