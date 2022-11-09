@@ -14,6 +14,10 @@ public class CarLogic : MonoBehaviour
     private GameObject player;
 
     private GameObject mainCamera;
+
+    private GameObject fire;
+
+    private float maxHealth;
     // private ParticleSystem particles;
     public PlayerStats playerStats;
     public float exitOffset;
@@ -21,9 +25,9 @@ public class CarLogic : MonoBehaviour
 
     void Start()
     {
-        // particles = GetComponent<ParticleSystem>();
-        // var emission = particles.emission;
-        // emission.enabled = false;
+        fire = FindObjectOfType<ParticleSystem>().gameObject;
+        fire.SetActive(false);
+        maxHealth = health;
     }
 
     // Update is called once per frame
@@ -65,11 +69,9 @@ public class CarLogic : MonoBehaviour
         Debug.Log("velocity magnitude was: " + collision.relativeVelocity.magnitude);
         Debug.Log("New car health is: " + health);
         //TODO: move the logic below to its own function
-        if (health < 30)
+        if (health < (maxHealth / 4))
         {
-            //TODO: make the car turn on fire here
-            /*var emission = particles.emission;
-            emission.enabled = true; this code makes unity angry*/ 
+            fire.SetActive(true);
         }
 
         if (health < 0)
