@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerState
   m_EditorClassIdentifier: 
   money: 0
-  health: 100
+  health: 80
   score: 0
