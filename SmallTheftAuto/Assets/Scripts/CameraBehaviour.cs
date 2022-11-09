@@ -12,7 +12,7 @@ public class CameraBehaviour : MonoBehaviour
     void Start()
     {
         //In the beginning the camera should follow the player
-        focus = FindObjectOfType<PlayerMovement>().gameObject;;
+        focus = FindObjectOfType<PlayerMovement>().gameObject;
     }
 
     // Update is called once per frame
