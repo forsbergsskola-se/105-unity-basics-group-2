@@ -34,7 +34,6 @@ public class QuestGiverLogic : MonoBehaviour, IQuestgiver
         bool allFinished = objectivesFinished.TrueForAll( b => b);
         if (allFinished)
         {
-            Debug.Log("The quest was finished!");
             questTaker.RecieveReward(moneyReward, pointsReward);
             questStarted = false;
         }
@@ -71,7 +70,6 @@ public class QuestGiverLogic : MonoBehaviour, IQuestgiver
     public void sectionCompleted(int ID)
     {
         objectivesFinished[ID] = true;
-        Debug.Log("An objective was completed!");
         checkIfAllFinished();
     }
 }

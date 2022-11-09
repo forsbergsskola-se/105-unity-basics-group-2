@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DriverLogic : MonoBehaviour
 {
+    public float searchRadius;
     private GameObject car; 
     // Start is called before the first frame update
     void Start()
@@ -16,13 +17,13 @@ public class DriverLogic : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 5.0f);
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, searchRadius);
             foreach (var hitCollider in nearbyColliders)
             {
-                Debug.Log("Looking for cars");
+                //We just take the first car unity gives us
+                //Maybe we could look for which is the closest one, but eeeehhhh.....
                 if (hitCollider.gameObject.GetComponent(typeof(CarLogic)) is CarLogic)
                 {
-                    Debug.Log("We found one");
                     car = hitCollider.gameObject;
                     car.GetComponent<CarLogic>().EnterCar(this.gameObject);
                     break;
