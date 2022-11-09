@@ -9,11 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public int rotationSpeed;
     
     public PlayerStats  playerStats;
+    public Object obj;
     
     // Start is called before the first frame update
     void Start()
     {
-        
+        Debug.Log("x");
     }
 
     // Update is called once per frame

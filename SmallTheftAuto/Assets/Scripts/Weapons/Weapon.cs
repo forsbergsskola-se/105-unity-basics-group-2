@@ -1,16 +1,15 @@
-﻿using Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Weapons
+[CreateAssetMenu]
+public class Weapon : ScriptableObject
 {
-    [CreateAssetMenu]
-    public class Weapon : ScriptableObject
-    {
-        public float range;
-        public float reloadTime;
-        public float timeBetweenShots;
-        public int magSize;
-        public bool semiAuto;
-        public Mesh visualMesh;
-    }
+    public float range;
+    public float reloadTime;
+    public float timeBetweenShots;
+    public int magSize;
+    public bool semiAuto;
+    
+    public Mesh visualMesh;
+
+    public Vector3 maxInaccuracy;
 }
