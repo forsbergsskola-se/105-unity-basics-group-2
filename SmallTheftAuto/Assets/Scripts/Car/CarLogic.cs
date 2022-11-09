@@ -40,7 +40,18 @@ public class CarLogic : MonoBehaviour
         if (health > 0)
         {
             this.player = player;
-            mainCamera = GameObject.Find("Main Camera");
+            //We need to do a bunch of stuff here to check if the camera we found is actually the main camera and
+            //not the minimap camera 
+            Camera[] cameras = FindObjectsOfType<Camera>();
+            for (int i = 0; i < cameras.Length; i++)
+            {
+                if (cameras[i].gameObject.GetComponent<CameraBehaviour>() != null)
+                {
+                    mainCamera = cameras[i].gameObject;
+                    break;
+                }
+            }
+            //mainCamera = GetComponent<Camera>().gameObject;
             mainCamera.GetComponent<CameraBehaviour>().NewFocus(gameObject);
             GetComponent<CarMovement>().enabled = true;
             player.SetActive(false);
