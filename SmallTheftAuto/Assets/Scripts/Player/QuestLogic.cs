@@ -5,7 +5,8 @@ using UnityEngine;
 
 
 public class QuestLogic : MonoBehaviour, IQuestTaker
-{ 
+{
+    public float searchRadius;
     public PlayerStats playerStats;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,7 @@ public class QuestLogic : MonoBehaviour, IQuestTaker
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, 10.0f);
+            Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, searchRadius);
             foreach (var hitCollider in nearbyColliders)
             {
                 Debug.Log("Looking for quest givers");
