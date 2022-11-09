@@ -145,7 +145,7 @@ MonoBehaviour:
   - {fileID: 1618814805}
   - {fileID: 464303888}
   - {fileID: 1697928129}
-  speed: 15
+  speed: 10
   distThreshold: 0.5
 --- !u!136 &63626675
 CapsuleCollider:
@@ -1117,7 +1117,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6371083285157504334, guid: 3839b464179673d4c9d87873b1cbb424, type: 3}
       propertyPath: m_Constraints
-      value: 80
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 6371083285157504334, guid: 3839b464179673d4c9d87873b1cbb424, type: 3}
       propertyPath: m_CollisionDetection
