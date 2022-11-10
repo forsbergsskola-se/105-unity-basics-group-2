@@ -43,20 +43,38 @@ public class QuestGiverLogic : MonoBehaviour, IQuestgiver
     {
         if (!questStarted)
         {
+            
+            //This is a bunch of repetetive code that could probably be in a loop but my brain is too smooth to 
+            //make that happen
             questStarted = true;
             objectivesFinished = new List<bool>();
             this.questTaker = questTaker;
-            for (int i = 0; i < 3; i++)
+            Vector3 position = new Vector3(-3.7f,0.5f,23.5f);
+            GameObject questObject = Instantiate(prefab, position, Quaternion.identity);
+            questObject.GetComponent<IQuestObject>().Initiate(this, 0);
+            position = new Vector3(-3f,0.5f,-21.73f);
+            questObject = Instantiate(prefab, position, Quaternion.identity);
+            questObject.GetComponent<IQuestObject>().Initiate(this, 1);
+            position = new Vector3(-32.6f,0.5f,-1.2f);
+            questObject = Instantiate(prefab, position, Quaternion.identity);
+            questObject.transform.Rotate(0,90,0);
+            questObject.GetComponent<IQuestObject>().Initiate(this, 2);
+            objectivesFinished.Add(false);
+            objectivesFinished.Add(false);
+            objectivesFinished.Add(false);
+            
+            /*for (int i = 0; i < 3; i++)
             {
                 Vector3 position = new Vector3();
                 System.Random random = new System.Random();
                 position.x = random.Next(-10, 11);
                 position.z = random.Next(-10, 11);
                 position.y = 0.5f;
+                position = new Vector3()
                 GameObject questObject = Instantiate(prefab, position, Quaternion.identity);
                 questObject.GetComponent<IQuestObject>().Initiate(this, i);
                 objectivesFinished.Add(false);
-            }
+            }*/
             QuestStarted?.Invoke();
         }
     }

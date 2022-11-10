@@ -28,11 +28,13 @@ public class checkpointLogic : MonoBehaviour, IQuestObject
 
     private void OnTriggerEnter(Collider other)
     {
+        
         //Debug.Log("something entered the trigger, it is " + other.gameObject.transform.parent.gameObject.name);
+        Debug.Log("something entered the trigger, it is " + other.gameObject.name);
         //This is an awful way of doing this
-        if (other.transform.parent != null)
+        if (other.transform != null)
         {
-            if (other.gameObject.transform.parent.gameObject.name == "Player")
+            if (other.gameObject.name == "Player")
             {
                 giver.sectionCompleted(ID);
                 Debug.Log("Section finished");
