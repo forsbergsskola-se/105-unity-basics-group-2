@@ -43,15 +43,5 @@ public class Burning : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        if (playerStats.health <= 0)
-        {
-            Death death = GetComponent<Death>();
-            if (death == null)
-            {
-                gameObject.AddComponent<Death>();
-            }
-        }
-    }
+
 }

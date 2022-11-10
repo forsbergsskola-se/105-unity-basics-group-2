@@ -5,22 +5,16 @@ using UnityEngine;
 
 public class Water : MonoBehaviour
 {
-    private int health;
+    
     public PlayerStats playerStats;
 
-    private void Start()
-    {
-        health = playerStats.health;
-    }
+  
 
-     void OnTriggerEnter(Collider other)
+     void OnTriggerStay(Collider other)
      {
-         Drowning drowning = other.GetComponent<Drowning>();
-         if (drowning == null)
-         {
-             other.gameObject.AddComponent<Drowning>();
-         }
-        
-    }
+         Debug.Log("Player in water.");
+         playerStats.health = 0;
+
+     }
     
 }
