@@ -3835,7 +3835,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 40
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720128748
 GameObject:
@@ -6025,7 +6025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b7656cb4691ab42bd54e2d6b765055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 11400000, guid: 04dad3f3d42e5d049bd1736a18899121, type: 2}
+  playerStats: {fileID: 11400000, guid: 080e843d42b77e14ab1435a501eb7d23, type: 2}
 --- !u!1001 &1174996458
 PrefabInstance:
   m_ObjectHideFlags: 0
