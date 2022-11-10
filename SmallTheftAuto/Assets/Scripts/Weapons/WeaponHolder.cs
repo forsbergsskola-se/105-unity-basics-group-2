@@ -26,6 +26,7 @@ public class WeaponHolder : MonoBehaviour
     
     // Maybe Todo: Move these to weaponDefinition definition (scriptable object)
     public float fireBulletOffset; // vec.x away from the bounding box
+    [SerializeField]
     public GameObject bulletObject;
     public float inaccuracyPerShotFactor = 0.1f;
     public float inaccuracyRecoverPerSecond = 0.1f;
@@ -159,7 +160,8 @@ public class WeaponHolder : MonoBehaviour
     void FireBullet(Vector3 startPosFromGun, Quaternion fireAngle)
     {
         Vector3 fireFrom = curWeaponEmpty.transform.position; //+ startPosFromGun; - may be needed if InstansiateInWorldSpace
-        Instantiate(bulletObject, fireFrom, fireAngle);
+// wont work?
+        var create = (GameObject)Instantiate(bulletObject, fireFrom, fireAngle);
     }
     
     void PrimaryFire()
@@ -177,6 +179,11 @@ public class WeaponHolder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // TODO: REPLACE!!!!!
+        // TODO: REPLACE!!!!!
+        if (Input.GetKeyDown("space"))
+        {
+            PrimaryFire();
+        }
     }
 }
