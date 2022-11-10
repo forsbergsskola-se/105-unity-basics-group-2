@@ -11,7 +11,7 @@ using Debug = UnityEngine.Debug;
 public class CarLogic : MonoBehaviour
 {
     // Start is called before the first frame update
-    private GameObject player;
+    public GameObject player;
 
     private GameObject mainCamera;
 

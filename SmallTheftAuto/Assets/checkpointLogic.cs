@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class checkpointLogic : MonoBehaviour, IQuestObject
@@ -39,6 +40,15 @@ public class checkpointLogic : MonoBehaviour, IQuestObject
                 giver.sectionCompleted(ID);
                 Debug.Log("Section finished");
                 Destroy(this.gameObject);
+            }
+            else if (!other.gameObject.GetComponent<CarLogic>().IsUnityNull())
+            {
+                if (other.gameObject.GetComponent<CarLogic>().player != null)
+                {
+                    giver.sectionCompleted(ID);
+                    Debug.Log("Section finished");
+                    Destroy(this.gameObject);
+                }
             }
         }
         /*if (other.gameObject.GetComponentInParent<PlayerMovement>().name == "PlayerMovement")
