@@ -7,6 +7,7 @@ public class AliveLogic : MonoBehaviour
     
     public delegate void OnPlayerDeath();
 
+    private bool respawning;
     public event OnPlayerDeath PlayerDied;
 
     public PlayerStats PlayerStats;
@@ -21,7 +22,7 @@ public class AliveLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerStats.health <= 0)
+        if (PlayerStats.health <= 0 && !respawning)
         {
             PlayerDied?.Invoke();
             
@@ -30,6 +31,7 @@ public class AliveLogic : MonoBehaviour
     }
     IEnumerator respawnRoutine()
     {
+        respawning = true;
         GetComponentInChildren<MeshRenderer>().enabled = false;
         //GetComponent<MeshRenderer>().enabled = false;
         //gameObject.SetActive(false);
@@ -40,6 +42,6 @@ public class AliveLogic : MonoBehaviour
         PlayerStats.health = 100;
         PlayerStats.money /= 2;
         transform.position = new Vector3(0, 1, 0);
-
+        respawning = false;
     }
 }
