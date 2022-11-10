@@ -89,11 +89,16 @@ public class CarLogic : MonoBehaviour
         {
             if (player != null)
             {
-                //The player should take damage here, but that function is not implemented
                 ExitCar();
                 playerStats.health = -1;
                 GetComponent<CarMovement>().enabled = false;
             }
+            StartCoroutine(WaitForFireToBurnOut());
         }
+    }
+    IEnumerator WaitForFireToBurnOut()
+    {
+        yield return new WaitForSeconds(20);
+        fire.SetActive(false);
     }
 }
