@@ -39,6 +39,7 @@ public class AliveLogic : MonoBehaviour
         GetComponentInChildren<MeshRenderer>().enabled = true;
         PlayerStats.health = 100;
         PlayerStats.money /= 2;
+        transform.position = new Vector3(0, 5, 0);
 
     }
 }
