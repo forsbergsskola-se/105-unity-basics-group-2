@@ -1,11 +1,25 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class Bullet : MonoBehaviour
 {
-        // Construct Bullet with these components
-        public static Type[] BulletComponents = { typeof(Bullet) };
+    private Rigidbody _rigidbody;
+    // Start is called before the first frame update
+    void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
-        private GameObject BulletGO = new GameObject("Bullet", BulletComponents);
+    private void OnEnable()
+    {
+        _rigidbody.AddRelativeForce(1000, 0,0);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

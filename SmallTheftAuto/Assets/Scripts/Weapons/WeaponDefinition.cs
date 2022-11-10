@@ -12,6 +12,8 @@ public class WeaponDefinition : ScriptableObject
     
     public GameObject WeaponVisual;
     public Vector3 PlayerOffset;
+    public Vector3 GunFireOffset; 
+
 
     public float maxInaccuracyDegreesVertical;
     public float maxInaccuracyDegreesHorizontal;

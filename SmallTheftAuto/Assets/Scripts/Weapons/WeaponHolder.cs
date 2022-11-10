@@ -26,6 +26,7 @@ public class WeaponHolder : MonoBehaviour
     
     // Maybe Todo: Move these to weaponDefinition definition (scriptable object)
     public float fireBulletOffset; // vec.x away from the bounding box
+    public GameObject bulletObject;
     public float inaccuracyPerShotFactor = 0.1f;
     public float inaccuracyRecoverPerSecond = 0.1f;
     
@@ -53,7 +54,7 @@ public class WeaponHolder : MonoBehaviour
     private float lastFire; 
     private float nextFire; // time when you can fire your next round
     
-    private float inaccuracyFactor; // 0f to 1f - grows when firing
+    private float curInaccuracyFactor; // 0f to 1f - grows when firing
     private float fireAngVariationHori; // Updated on weapon switch, half of total horizontal
     private float fireAngVariationVert;   // half of total vertical
     
@@ -111,7 +112,7 @@ public class WeaponHolder : MonoBehaviour
         return newWorldVisual;
     }
    
-    private void UpdateInaccuracyVariance(WeaponDefinition weaponDef)
+    private void CacheInnaccuracyVariance(WeaponDefinition weaponDef)
     {
         fireAngVariationVert = weaponDef.maxInaccuracyDegreesVertical * 0.5f;
         fireAngVariationHori = weaponDef.maxInaccuracyDegreesHorizontal * 0.5f;
@@ -132,7 +133,7 @@ public class WeaponHolder : MonoBehaviour
         
         curAmmoState = GetOrCreateAmmoState(newWeaponDefinition);
         curWeaponWorldVisuals = ReplaceWeaponVisuals(newWeaponDefinition);
-        UpdateInaccuracyVariance(newWeaponDefinition);
+        CacheInnaccuracyVariance(newWeaponDefinition);
 
         curWeaponDefinition = newWeaponDefinition; // update our scriptable object asset reference
     }
@@ -142,25 +143,23 @@ public class WeaponHolder : MonoBehaviour
         SwitchWeapon( wepDefPistol );
     }
     
-    Vector3 GetFiringAngle()
+    Quaternion GetFiringAngle()
     {
-        Vector3 forwardVec = curWeaponEmpty.transform.forward;
-        float inaccuracyHorizontal = Random.Range( -fireAngVariationHori, fireAngVariationHori ); // not equal in both direction but close enough
-        float inaccuracyVertical   = Random.Range( -fireAngVariationVert, fireAngVariationVert ); // not equal in both direction but close enough
-        
-        float firingAngleHori = 
-        float firingAngleVert = 
-        
-        Quaternion firingAngle = new Quaternion( )
-        // Quaternion firingAngle = Random.
+        float inaccuracyAngRandHori = Random.Range( -fireAngVariationHori, fireAngVariationHori ); // not equal in both fireAngle but close enough
+        float inaccuracyAngRandVert = Random.Range( -fireAngVariationVert, fireAngVariationVert ); // not equal in both fireAngle but close enough
 
-        return forwardVec;
+        float firingAngleHori = inaccuracyAngRandHori * curInaccuracyFactor;
+        float firingAngleVert = inaccuracyAngRandVert * curInaccuracyFactor;
+
+        Quaternion firingAngle = new Quaternion(0, firingAngleHori, firingAngleVert, 1);
+
+        return firingAngle;
     }
 
-    void FireBullet(Vector3 fireVector)
+    void FireBullet(Vector3 startPosFromGun, Quaternion fireAngle)
     {
-        // Vector3 fireFrom = curWeaponWorldMeshFilter.mesh.bounds.max;
-        // Instantiate();
+        Vector3 fireFrom = curWeaponEmpty.transform.position; //+ startPosFromGun; - may be needed if InstansiateInWorldSpace
+        Instantiate(bulletObject, fireFrom, fireAngle);
     }
     
     void PrimaryFire()
@@ -169,7 +168,8 @@ public class WeaponHolder : MonoBehaviour
         
         if (curTime > nextFire)
         {
-            FireBullet( GetFiringAngle() );
+            FireBullet( curWeaponDefinition.GunFireOffset, GetFiringAngle() );
+            // TODO: Inaccuracy factor increment
             // FireBullet(GetFiringAngle());
         }
     }
