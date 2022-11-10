@@ -59,22 +59,11 @@ public class QuestGiverLogic : MonoBehaviour, IQuestgiver
             questObject = Instantiate(prefab, position, Quaternion.identity);
             questObject.transform.Rotate(0,90,0);
             questObject.GetComponent<IQuestObject>().Initiate(this, 2);
+            
             objectivesFinished.Add(false);
             objectivesFinished.Add(false);
             objectivesFinished.Add(false);
             
-            /*for (int i = 0; i < 3; i++)
-            {
-                Vector3 position = new Vector3();
-                System.Random random = new System.Random();
-                position.x = random.Next(-10, 11);
-                position.z = random.Next(-10, 11);
-                position.y = 0.5f;
-                position = new Vector3()
-                GameObject questObject = Instantiate(prefab, position, Quaternion.identity);
-                questObject.GetComponent<IQuestObject>().Initiate(this, i);
-                objectivesFinished.Add(false);
-            }*/
             QuestStarted?.Invoke();
         }
     }
