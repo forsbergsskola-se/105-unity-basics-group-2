@@ -27,10 +27,13 @@ public class Fire : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        Burning burning = other.GetComponent<Burning>();
-        if (burning.enabled == false)
+        if (other.GetComponent<PlayerMovement>())
         {
-            burning.enabled = true;
+            Burning burning = other.GetComponent<Burning>();
+            if (burning.enabled == false)
+            {
+                burning.enabled = true;
+            }
         }
     }
 }

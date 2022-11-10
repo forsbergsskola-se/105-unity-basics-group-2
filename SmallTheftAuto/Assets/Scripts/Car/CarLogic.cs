@@ -23,9 +23,11 @@ public class CarLogic : MonoBehaviour
     public float exitOffset;
     public float health;
 
+    private bool isCarDead;
+
     void Start()
     {
-        fire = FindObjectOfType<ParticleSystem>().gameObject;
+        fire = GetComponentInChildren<ParticleSystem>().gameObject;
         fire.SetActive(false);
         maxHealth = health;
     }
@@ -85,8 +87,10 @@ public class CarLogic : MonoBehaviour
             fire.SetActive(true);
         }
 
-        if (health < 0)
+        if (health < 0 && isCarDead == false)
         {
+            isCarDead = true;
+            GetComponent<FireSpawner>().enabled = true;
             if (player != null)
             {
                 ExitCar();
@@ -94,6 +98,7 @@ public class CarLogic : MonoBehaviour
                 GetComponent<CarMovement>().enabled = false;
             }
             StartCoroutine(WaitForFireToBurnOut());
+            GetComponent<FireSpawner>().enabled = false;
         }
     }
     IEnumerator WaitForFireToBurnOut()
