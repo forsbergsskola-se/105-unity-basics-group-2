@@ -17,5 +17,6 @@ MonoBehaviour:
   timeBetweenShots: 0.2
   magSize: 16
   semiAuto: 1
-  visualMesh: {fileID: 669696258820236782, guid: 81888761d975e429b9f88509875f3bcf, type: 3}
+  WeaponVisual: {fileID: 2922049823074783791, guid: b2f772953c133406ab47d85f5cda01b2, type: 3}
+  PlayerOffset: {x: 0, y: 0.2, z: 0}
   maxInaccuracy: {x: 1, y: 1, z: 1}

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AmmoState
 {
@@ -21,67 +22,71 @@ public class AmmoState
 
 public class WeaponHolder : MonoBehaviour
 {
-    public Weapon curWeapon;
+    private WeaponDefinition curWeaponDefinition;
     
-    // Maybe Todo: Move these to weapon definition (scriptable object)
-    public Vector3 weaponOffset;
-    public float InaccuracyPerShotFactor = 0.1f;
-    public float InaccuracyRecoverPerSecond = 0.1f;
+    // Maybe Todo: Move these to weaponDefinition definition (scriptable object)
+    public float fireBulletOffset; // vec.x away from the bounding box
+    public float inaccuracyPerShotFactor = 0.1f;
+    public float inaccuracyRecoverPerSecond = 0.1f;
     
     public bool useAmmo; // Infinite ammo when false
     public bool defaultIsLoaded; // first time equip - clip full?
     public int defaultReserveAmmo = 16; // first time equip - how much in reserve?
 
-    // singleton patterned weaponIndex
-    private static WeaponIndex _weaponIndex;
-
-    // object that also appears in the game world
-    private GameObject curWeaponWorld;
-
-    private MeshFilter curWeaponWorldMeshFilter;
-    private MeshRenderer curWeaponWorldMeshRenderer;
+    [SerializeField]
+    public WeaponDefinition wepDefHands;
+    [SerializeField]
+    public WeaponDefinition wepDefPistol;
+    [SerializeField]
+    public WeaponDefinition wepDefMachineGun;
     
-    // for weapon logic
+    // empty that gets parented to the player + has functionality
+    private GameObject curWeaponEmpty;
+    private GameObject curWeaponWorldVisuals; // prefab that just gets displayed in the world
+
+    // for weaponDefinition logic
     
     // todo: maybe explain to group?
-    public Dictionary<Weapon, AmmoState> PerWeaponAmmoState; // ScriptableObject equivalence could be a source of bugs
+    public Dictionary<string, AmmoState> PerWeaponAmmoState;
     private AmmoState curAmmoState;
 
-    private float lastFire;
+    private float lastFire; 
     private float nextFire; // time when you can fire your next round
-
-
+    
+    private float inaccuracyFactor; // 0f to 1f - grows when firing
+    private float fireAngVariationHori; // Updated on weapon switch, half of total horizontal
+    private float fireAngVariationVert;   // half of total vertical
+    
     private void Awake()
     {
-        curWeaponWorld = new GameObject();
-        curWeaponWorld.transform.localPosition = weaponOffset;
-        
-        curWeaponWorldMeshFilter   = curWeaponWorld.AddComponent<MeshFilter>();
-        curWeaponWorldMeshRenderer = curWeaponWorld.AddComponent<MeshRenderer>();
-        
-        if (_weaponIndex == null)
-        {
-            _weaponIndex = curWeaponWorld.AddComponent<WeaponIndex>();
-        }
+        // Create empty named "Weapon" and parent it to script parent
+        curWeaponEmpty = new GameObject("Weapon");
+        curWeaponEmpty.transform.SetParent(gameObject.transform, false);
+        // curWeaponEmpty.transform.parent = gameObject.transform;
+        // curWeaponEmpty.transform.localPosition = Vector3.zero;
+
+        PerWeaponAmmoState = new Dictionary<string, AmmoState>();
     }
 
     // Gets an AmmoState if it is stored in PerWeaponAmmoState
     // Otherwise, create one using
     // Then stores it in PerWeaponAmmoState
-   private AmmoState GetOrCreateAmmoState(Weapon weapon)
-    {
+   private AmmoState GetOrCreateAmmoState(WeaponDefinition weaponDefinition)
+   {
+       Debug.Assert(weaponDefinition != null);
+       
         // If we already have a stored AmmoState, 
         // var here means 'assign it to a new variable'
-        if (!PerWeaponAmmoState.TryGetValue(weapon, out var retAmmoState))
+        if (!PerWeaponAmmoState.TryGetValue(weaponDefinition.name, out var retAmmoState))
         {
-            // no ammo state for the weapon in PerWeaponAmmoState,
-            // first time using a weapon logic (for this GameObject/Component)
+            // no ammo state for the weaponDefinition in PerWeaponAmmoState,
+            // first time using a weaponDefinition logic (for this GameObject/Component)
             // construct a new AmmoState
-            int ammoLoaded = (defaultIsLoaded ? weapon.magSize : 0);
+            int ammoLoaded = (defaultIsLoaded ? weaponDefinition.magSize : 0);
             int ammoReserve = defaultReserveAmmo;
             retAmmoState = new AmmoState(ammoLoaded, ammoReserve);
         }
-        PerWeaponAmmoState[weapon] = retAmmoState; // and store it
+        PerWeaponAmmoState[weaponDefinition.name] = retAmmoState; // and store it
         return retAmmoState;
     }
     
@@ -89,36 +94,73 @@ public class WeaponHolder : MonoBehaviour
    // todo: useful probably on death
    public void ClearAmmoStates() => PerWeaponAmmoState.Clear();
    
-    void SwitchWeapon(Weapon newWeapon)
+   // destroys old world visual, replaces it with a new GameObject and returns the new one
+    GameObject ReplaceWeaponVisuals(WeaponDefinition newWeapon)
     {
-        if (curWeapon == newWeapon)
+        Destroy(curWeaponWorldVisuals); // There are many better ways but w/e
+
+        GameObject newVisuals = newWeapon.WeaponVisual;
+        Vector3    newVisualOffset = newWeapon.PlayerOffset;
+        Quaternion newVisualRot = Quaternion.identity;
+        Transform parentTransform = curWeaponEmpty.transform;
+
+        GameObject newWorldVisual = Instantiate(newVisuals, newVisualOffset, newVisualRot);
+        newWorldVisual.transform.SetParent(parentTransform, false);
+        newWorldVisual.transform.localPosition = newVisualOffset;
+
+        return newWorldVisual;
+    }
+   
+    private void UpdateInaccuracyVariance(WeaponDefinition weaponDef)
+    {
+        fireAngVariationVert = weaponDef.maxInaccuracyDegreesVertical * 0.5f;
+        fireAngVariationHori = weaponDef.maxInaccuracyDegreesHorizontal * 0.5f;
+    }
+    
+    void SwitchWeapon(WeaponDefinition newWeaponDefinition)
+    {
+        if (curWeaponDefinition != null)
         {
-            // @ means verbatim string, stores the newline.
-            Debug.Log(@"Cannot switch to the same weapon you're already holding
-            Ignoring Weapon Switch...");
-            return;
+            if (curWeaponDefinition.name == newWeaponDefinition.name)
+            {
+                Debug.Log($"Held Weapon: {curWeaponDefinition}, new Weapon: {newWeaponDefinition}");
+
+                Debug.Log("Cannot switch to the same weaponDefinition you're already holding, ignoring WeaponDefinition Switch...");
+                return;
+            }
         }
+        
+        curAmmoState = GetOrCreateAmmoState(newWeaponDefinition);
+        curWeaponWorldVisuals = ReplaceWeaponVisuals(newWeaponDefinition);
+        UpdateInaccuracyVariance(newWeaponDefinition);
 
-        curAmmoState = GetOrCreateAmmoState(newWeapon);
-
-        curWeapon = newWeapon; // update our scriptable object asset reference
-        curWeaponWorldMeshFilter.mesh = curWeapon.visualMesh;
+        curWeaponDefinition = newWeaponDefinition; // update our scriptable object asset reference
     }
 
     void OnEnable()
     {
-        SwitchWeapon( WeaponIndex.Pistol );
+        SwitchWeapon( wepDefPistol );
     }
     
-    Vector3 GetFireVector()
+    Vector3 GetFiringAngle()
     {
-        Vector3 forwardVec = curWeaponWorld.transform.forward;
+        Vector3 forwardVec = curWeaponEmpty.transform.forward;
+        float inaccuracyHorizontal = Random.Range( -fireAngVariationHori, fireAngVariationHori ); // not equal in both direction but close enough
+        float inaccuracyVertical   = Random.Range( -fireAngVariationVert, fireAngVariationVert ); // not equal in both direction but close enough
+        
+        float firingAngleHori = 
+        float firingAngleVert = 
+        
+        Quaternion firingAngle = new Quaternion( )
+        // Quaternion firingAngle = Random.
+
         return forwardVec;
     }
 
     void FireBullet(Vector3 fireVector)
     {
-        Instantiate();
+        // Vector3 fireFrom = curWeaponWorldMeshFilter.mesh.bounds.max;
+        // Instantiate();
     }
     
     void PrimaryFire()
@@ -127,7 +169,8 @@ public class WeaponHolder : MonoBehaviour
         
         if (curTime > nextFire)
         {
-            ()    
+            FireBullet( GetFiringAngle() );
+            // FireBullet(GetFiringAngle());
         }
     }
     

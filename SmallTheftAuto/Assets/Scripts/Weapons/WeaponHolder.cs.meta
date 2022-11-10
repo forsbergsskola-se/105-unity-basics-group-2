@@ -3,7 +3,10 @@ guid: 05fb124b2e277a34bb6fa18bbb87a8a2
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - wepDefHands: {fileID: 11400000, guid: 605914a410959467db9a104184e81d38, type: 2}
+  - wepDefPistol: {fileID: 11400000, guid: 605914a410959467db9a104184e81d38, type: 2}
+  - wepDefMachineGun: {fileID: 11400000, guid: 605914a410959467db9a104184e81d38, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

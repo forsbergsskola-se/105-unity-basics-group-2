@@ -1546,8 +1546,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fb124b2e277a34bb6fa18bbb87a8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heldWeapon: {fileID: 0}
   weaponOffset: {x: 1, y: 1, z: 0}
+  fireBulletOffset: 0
+  InaccuracyPerShotFactor: 0.1
+  InaccuracyRecoverPerSecond: 0.1
+  useAmmo: 0
+  defaultIsLoaded: 0
+  defaultReserveAmmo: 16
+  wepDefHands: {fileID: 11400000, guid: 605914a410959467db9a104184e81d38, type: 2}
+  wepDefPistol: {fileID: 11400000, guid: 605914a410959467db9a104184e81d38, type: 2}
+  wepDefMachineGun: {fileID: 11400000, guid: 605914a410959467db9a104184e81d38, type: 2}
 --- !u!114 &1774287078
 MonoBehaviour:
   m_ObjectHideFlags: 0
