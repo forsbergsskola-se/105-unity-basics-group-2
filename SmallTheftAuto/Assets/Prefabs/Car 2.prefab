@@ -4996,7 +4996,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerStats: {fileID: 11400000, guid: 080e843d42b77e14ab1435a501eb7d23, type: 2}
   exitOffset: 1.5
-  health: 100
+  health: 50
 --- !u!114 &9063472645559510266
 MonoBehaviour:
   m_ObjectHideFlags: 0
