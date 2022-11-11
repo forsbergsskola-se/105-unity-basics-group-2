@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     public float startVelocity;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }

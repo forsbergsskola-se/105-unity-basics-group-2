@@ -58,9 +58,20 @@ public class WeaponHolder : MonoBehaviour
     private float curInaccuracyFactor; // 0f to 1f - grows when firing
     private float fireAngVariationHori; // Updated on weapon switch, half of total horizontal
     private float fireAngVariationVert;   // half of total vertical
+
+    public bool LogWeaponUse = true;
+    private void CondLog(string msg) => Debug.Log(msg);
+    private void CondLog(params string[] msg) => Debug.Log(msg);
     
+    private void OnValidate()
+    {
+        Debug.Assert(bulletObject != null, "Unassigned Bullet on WeaponHolder", this);
+    }
+
     private void Awake()
     {
+        // nextFire = 0;
+        
         // Create empty named "Weapon" and parent it to script parent
         curWeaponEmpty = new GameObject("Weapon");
         curWeaponEmpty.transform.SetParent(gameObject.transform, false);
@@ -125,9 +136,9 @@ public class WeaponHolder : MonoBehaviour
         {
             if (curWeaponDefinition.name == newWeaponDefinition.name)
             {
-                Debug.Log($"Held Weapon: {curWeaponDefinition}, new Weapon: {newWeaponDefinition}");
+                CondLog($"Held Weapon: {curWeaponDefinition}, new Weapon: {newWeaponDefinition}");
 
-                Debug.Log("Cannot switch to the same weaponDefinition you're already holding, ignoring WeaponDefinition Switch...");
+                CondLog("Cannot switch to the same weaponDefinition you're already holding, ignoring WeaponDefinition Switch...");
                 return;
             }
         }
@@ -144,10 +155,10 @@ public class WeaponHolder : MonoBehaviour
         SwitchWeapon( wepDefPistol );
     }
     
-    Quaternion GetFiringAngle()
+    Quaternion GetVarianceFiringAngle()
     {
-        float inaccuracyAngRandHori = Random.Range( -fireAngVariationHori, fireAngVariationHori ); // not equal in both fireAngle but close enough
-        float inaccuracyAngRandVert = Random.Range( -fireAngVariationVert, fireAngVariationVert ); // not equal in both fireAngle but close enough
+        float inaccuracyAngRandHori = Random.Range( -fireAngVariationHori, fireAngVariationHori ); // not equal in both fireAngleOffset but close enough
+        float inaccuracyAngRandVert = Random.Range( -fireAngVariationVert, fireAngVariationVert ); // not equal in both fireAngleOffset but close enough
 
         float firingAngleHori = inaccuracyAngRandHori * curInaccuracyFactor;
         float firingAngleVert = inaccuracyAngRandVert * curInaccuracyFactor;
@@ -157,22 +168,30 @@ public class WeaponHolder : MonoBehaviour
         return firingAngle;
     }
 
-    void FireBullet(Vector3 startPosFromGun, Quaternion fireAngle)
+    void FireBullet(Vector3 spawnBulletOffset, Quaternion fireAngleOffset)
     {
-        Vector3 fireFrom = curWeaponEmpty.transform.position; //+ startPosFromGun; - may be needed if InstansiateInWorldSpace
-// wont work?
-        var create = (GameObject)Instantiate(bulletObject, fireFrom, fireAngle);
+        Vector3 relFireOffset = Vector3.Scale(curWeaponEmpty.transform.forward, spawnBulletOffset);
+        Vector3 fireLoc = curWeaponEmpty.transform.position + relFireOffset;
+
+        Quaternion fireRot = curWeaponEmpty.transform.localRotation * fireAngleOffset;
+        
+        CondLog($"Offset Bullet Loc {spawnBulletOffset}, Offset Bullet Rot: {fireAngleOffset}");
+        CondLog($"Instansiating bullet from {fireLoc}, angle: {fireRot}");
+        Instantiate(bulletObject, fireLoc, fireAngleOffset);
+        CondLog("BLAM'd");
     }
     
     void PrimaryFire()
     {
+        CondLog("PrimaryFire");
         float curTime = Time.time;
         
         if (curTime > nextFire)
         {
-            FireBullet( curWeaponDefinition.GunFireOffset, GetFiringAngle() );
+            CondLog("Valid time to fire");
+            FireBullet( curWeaponDefinition.GunFireOffset, GetVarianceFiringAngle() );
             // TODO: Inaccuracy factor increment
-            // FireBullet(GetFiringAngle());
+            // FireBullet(GetVarianceFiringAngle());
         }
     }
     
