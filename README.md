@@ -1,13 +1,13 @@
-# {game-title}
+Kitsch Theft Auto
 
 {video}
 
-{description}
+Our first Group Project GP 22. 
 
-## Team Name
+Group 2
 
-{team members and roles}
+Jakob 
+Hildur-Hanna
+Felix
+Sofie
 
-Feel free to link any existing Linked.in Profiles or Portfolio Websites.
-
-## More Media
