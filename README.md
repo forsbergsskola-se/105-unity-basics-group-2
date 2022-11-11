@@ -1,13 +1,16 @@
 Kitsch Theft Auto
 
-{video}
 
-Our first Group Project GP 22. 
 
-Group 2
+"Our first Group Project GP 22. A tiny game, for a tiny group."
 
-Jakob 
+Group 2:
+
+Jakob
+
 Hildur-Hanna
+
 Felix
+
 Sofie
 
