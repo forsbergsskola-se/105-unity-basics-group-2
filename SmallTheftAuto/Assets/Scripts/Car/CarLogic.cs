@@ -74,7 +74,7 @@ public class CarLogic : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.relativeVelocity.magnitude > 0.1f)
+        if (collision.relativeVelocity.magnitude > 15f)
         {
             health -= collision.relativeVelocity.magnitude;
             Debug.Log("Magnitude was high enough");

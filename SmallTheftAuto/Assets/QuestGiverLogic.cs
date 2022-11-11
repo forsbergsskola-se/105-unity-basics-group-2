@@ -46,24 +46,22 @@ public class QuestGiverLogic : MonoBehaviour, IQuestgiver
             
             //This is a bunch of repetetive code that could probably be in a loop but my brain is too smooth to 
             //make that happen
+            Vector3[] vectors = new Vector3[3];
+            vectors[0] = new Vector3(-3.7f,0.5f,23.5f);
+            vectors[1] = new Vector3(-3f,0.5f,-21.73f);
+            vectors[2] = new Vector3(-32.6f,0.5f,-1.2f);
             questStarted = true;
             objectivesFinished = new List<bool>();
             this.questTaker = questTaker;
-            Vector3 position = new Vector3(-3.7f,0.5f,23.5f);
-            GameObject questObject = Instantiate(prefab, position, Quaternion.identity);
-            questObject.GetComponent<IQuestObject>().Initiate(this, 0);
-            position = new Vector3(-3f,0.5f,-21.73f);
-            questObject = Instantiate(prefab, position, Quaternion.identity);
-            questObject.GetComponent<IQuestObject>().Initiate(this, 1);
-            position = new Vector3(-32.6f,0.5f,-1.2f);
-            questObject = Instantiate(prefab, position, Quaternion.identity);
-            questObject.transform.Rotate(0,90,0);
-            questObject.GetComponent<IQuestObject>().Initiate(this, 2);
-            
-            objectivesFinished.Add(false);
-            objectivesFinished.Add(false);
-            objectivesFinished.Add(false);
-            
+            GameObject questObject = null;
+            for (int i = 0; i < 3; i++)
+            {
+                questObject = Instantiate(prefab, vectors[i], Quaternion.identity);
+                questObject.GetComponent<IQuestObject>().Initiate(this, i);
+                objectivesFinished.Add(false);
+            }
+            questObject?.transform.Rotate(0,90,0);
+
             QuestStarted?.Invoke();
         }
     }
