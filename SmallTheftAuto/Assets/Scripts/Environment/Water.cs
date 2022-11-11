@@ -12,9 +12,7 @@ public class Water : MonoBehaviour
 
      void OnTriggerStay(Collider other)
      {
-         Debug.Log("Player in water.");
          playerStats.health = 0;
-
      }
     
 }

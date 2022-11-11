@@ -17,6 +17,8 @@ public class CarLogic : MonoBehaviour
 
     private GameObject fire;
 
+    private bool hasBurned = false;
+
     private float maxHealth;
     // private ParticleSystem particles;
     public PlayerStats playerStats;
@@ -35,7 +37,10 @@ public class CarLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (playerStats.health <= 0)
+        {
+            ExitCar();
+        }
     }
     public void EnterCar(GameObject player)
     {
@@ -74,6 +79,11 @@ public class CarLogic : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        /*Debug.Log(collision.gameObject.GetComponent<Water>());
+        if (collision.gameObject.GetComponent<Water>() != null)
+        {
+            ExitCar();
+        }*/
         if (collision.relativeVelocity.magnitude > 15f)
         {
             health -= collision.relativeVelocity.magnitude;
@@ -82,7 +92,7 @@ public class CarLogic : MonoBehaviour
         Debug.Log("velocity magnitude was: " + collision.relativeVelocity.magnitude);
         Debug.Log("New car health is: " + health);
         //TODO: move the logic below to its own function
-        if (health < (maxHealth / 4))
+        if (health < (maxHealth / 4) && !hasBurned)
         {
             fire.SetActive(true);
         }
@@ -97,8 +107,13 @@ public class CarLogic : MonoBehaviour
                 playerStats.health = -1;
                 GetComponent<CarMovement>().enabled = false;
             }
-            StartCoroutine(WaitForFireToBurnOut());
-            GetComponent<FireSpawner>().enabled = false;
+
+            if (!hasBurned)
+            {
+                hasBurned = true;
+                StartCoroutine(WaitForFireToBurnOut());
+                GetComponent<FireSpawner>().enabled = false;
+            }
         }
     }
     IEnumerator WaitForFireToBurnOut()
